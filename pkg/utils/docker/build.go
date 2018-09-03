@@ -18,14 +18,15 @@ package docker
 
 import (
 	"bytes"
-	dockerlib "github.com/fsouza/go-dockerclient"
-	"github.com/kubernetes/kompose/pkg/utils/archive"
-	"github.com/pkg/errors"
-	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"os"
 	"path"
 	"strings"
+
+	dockerlib "github.com/fsouza/go-dockerclient"
+	"github.com/kubernetes/kompose/pkg/utils/archive"
+	"github.com/pkg/errors"
+	log "github.com/sirupsen/logrus"
 )
 
 // Build will provide methods for interaction with API regarding building images
@@ -43,7 +44,7 @@ func (c *Build) BuildImage(source string, image string, dockerfile string) error
 	log.Infof("Building image '%s' from directory '%s'", image, path.Base(source))
 
 	// Create a temporary file for tarball image packaging
-	tmpFile, err := ioutil.TempFile("/tmp", "kompose-image-build-")
+	tmpFile, err := ioutil.TempFile(os.TempDir(), "kompose-image-build-")
 	if err != nil {
 		return err
 	}
